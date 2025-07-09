@@ -1,0 +1,24 @@
+{
+    "name": "al3x5/xbot-devkit",
+    "description": "DevKit to scrape Telegram Bot API and generate PHP entities for the xBot framework.",
+    "type": "library",
+    "require": {
+        "php": "^8.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Al3x5\\xBot\\Devkit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "al3x5dev",
+            "email": "al3x5.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "bin": [
+        "bin/update-api"
+    ]
+}

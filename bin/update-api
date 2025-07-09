@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+use Al3x5\xBot\Devkit\Generator;
+use Al3x5\xBot\Devkit\Scrapper;
+
+include __DIR__ . '/../vendor/autoload.php';
+
+Scrapper::start();
+Generator::init();
