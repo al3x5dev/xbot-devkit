@@ -18,6 +18,8 @@ class Generator
         'InputFile',
     ];
 
+    public const custom = ['Update', 'Message'];
+
     public static function init(): void
     {
         $data = json_decode(
@@ -45,14 +47,19 @@ class Generator
                 $typeData['fields'] = [];
             }
 
-            $resolveMethod = null;
+            $addMethod = null;
             //Subentidades
             if (isset($typeData['subtypes'])) {
                 $subtypes = SubType::from($name);
-                $resolveMethod = $subtypes->resolveMethod();
+                $addMethod = $subtypes->resolveMethod();
             }
 
-            $classContent = self::makeClass($name, $typeData, $resolveMethod);
+            //Entidades con metodos custom
+            if (in_array($name,self::custom)) {
+                $addMethod = self::{$name}();
+            }
+
+            $classContent = self::makeClass($name, $typeData, $addMethod);
             file_put_contents($outputDir . $name . '.php', $classContent);
         }
     }
@@ -60,7 +67,7 @@ class Generator
     public static function makeClass(
         string $className,
         array $typeData,
-        ?string $resolveMethod = null
+        ?string $addMethod = null
     ): string {
         $properties = [];
         $entityMap = [];
@@ -101,8 +108,8 @@ class Generator
             $entityMapCode .= "        ];";
         }
 
-        if (!is_null($resolveMethod)) {
-            $resolveMethod = "\n\n    $resolveMethod";
+        if (!is_null($addMethod)) {
+            $addMethod = "\n\n    $addMethod";
         }
 
         return <<<PHP
@@ -118,9 +125,41 @@ class $className extends Entity
     protected function setEntities(): array
     {
         $entityMapCode
-    }$resolveMethod
+    }$addMethod
 }
 
+PHP;
+    }
+
+    private static function Update() : string
+    {
+        return <<<PHP
+/**
+ * Tipo de Actualizacion
+ */
+public function type(): ?string
+{
+    foreach (\$this->getEntities() as \$key => \$value) {
+        if (isset(\$this->\$key)) {
+            return \$key;
+        }
+    }
+    return null;
+}
+PHP;
+    }
+
+    private static function Message() : string
+    {
+        return <<<PHP
+public function isCommand(): bool
+{
+    if (isset(\$this->entities)) {
+        return \$this->__get('entities')->__get('type') === 'bot_command';
+    }
+
+    return false;
+}
 PHP;
     }
 
