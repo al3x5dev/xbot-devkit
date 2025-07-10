@@ -139,7 +139,7 @@ PHP;
  */
 public function type(): ?string
 {
-    foreach (\$this->getEntities() as \$key => \$value) {
+    foreach (\$this->setEntities() as \$key => \$value) {
         if (isset(\$this->\$key)) {
             return \$key;
         }
@@ -155,7 +155,7 @@ PHP;
 public function isCommand(): bool
 {
     if (isset(\$this->entities)) {
-        return \$this->__get('entities')->__get('type') === 'bot_command';
+        return \$this->entities->type === 'bot_command';
     }
 
     return false;
