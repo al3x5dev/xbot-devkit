@@ -4,7 +4,7 @@
 use Al3x5\xBot\Devkit\Generator;
 use Al3x5\xBot\Devkit\Scrapper;
 
-include __DIR__ . '/../vendor/autoload.php';
+include dirname(__DIR__,3) . '/autoload.php';
 
 Scrapper::start();
 Generator::init();
