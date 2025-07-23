@@ -134,33 +134,36 @@ PHP;
     private static function Update() : string
     {
         return <<<PHP
-/**
- * Tipo de Actualizacion
- */
-public function type(): ?string
-{
-    foreach (\$this->setEntities() as \$key => \$value) {
-        if (isset(\$this->\$key)) {
-            return \$key;
+    /**
+     * Tipo de Actualizacion
+     */
+    public function type(): ?string
+    {
+        foreach (\$this->setEntities() as \$key => \$v) {
+            if (\$this->hasProperty(\$key)) {
+                return \$key;
+            }
         }
+        return null;
     }
-    return null;
-}
-PHP;
+    PHP;
     }
 
     private static function Message() : string
     {
         return <<<PHP
-public function isCommand(): bool
-{
-    if (isset(\$this->entities)) {
-        return \$this->entities->type === 'bot_command';
+    public function isCommand(): bool
+    {
+        if (\$this->hasProperty('entities')) {
+            foreach (\$this->entities as \$entity) {
+                if (\$entity->type === 'bot_command') {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
-
-    return false;
-}
-PHP;
+    PHP;
     }
 
     private static function sanitizeClassName(string $typeName): string
