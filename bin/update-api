@@ -8,3 +8,5 @@ include dirname(__DIR__,3) . '/autoload.php';
 
 Scrapper::start();
 Generator::init();
+
+echo "✅ Completed Successfully";
