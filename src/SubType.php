@@ -56,7 +56,7 @@ enum SubType: string
     private function resolveMaybeInaccessibleMessage(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return $this->hasProperty('from') 
             ? new Message($this->properties)
@@ -68,7 +68,7 @@ PHP;
     private function resolveMessageOrigin(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'user' => new MessageOriginUser($this->properties),
@@ -84,7 +84,7 @@ PHP;
     private function resolveChatMember(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->status) {
             'creator' => new ChatMemberOwner($this->properties),
@@ -102,7 +102,7 @@ PHP;
     private function resolvePaidMedia(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type){
             'preview' => new PaidMediaPreview($this->properties),
@@ -117,7 +117,7 @@ PHP;
     private function resolveBackgroundFill(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'solid' => new BackgroundFillSolid($this->properties),
@@ -132,7 +132,7 @@ PHP;
     private function resolveBackgroundType(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'fill' => new BackgroundTypeFill($this->properties),
@@ -148,7 +148,7 @@ PHP;
     private function resolveStoryAreaType(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'location' => new StoryAreaTypeLocation($this->properties),
@@ -165,7 +165,7 @@ PHP;
     private function resolveReactionType(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'emoji' => new ReactionTypeEmoji($this->properties),
@@ -180,7 +180,7 @@ PHP;
     private function resolveOwnedGift(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type){
             'regular' => new OwnedGiftRegular($this->properties),
@@ -194,7 +194,7 @@ PHP;
     private function resolveBotCommandScope(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'default' => new BotCommandScopeDefault($this->properties),
@@ -213,7 +213,7 @@ PHP;
     private function resolveMenuButton(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'commands' => new MenuButtonCommands($this->properties),
@@ -228,7 +228,7 @@ PHP;
     private function resolveChatBoostSource(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->source) {
             'premium' => new ChatBoostSourcePremium($this->properties),
@@ -243,7 +243,7 @@ PHP;
     private function resolveInputMedia(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'photo' => new InputMediaPhoto($this->properties),
@@ -260,7 +260,7 @@ PHP;
     private function resolveInputPaidMedia(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'photo' => new InputPaidMediaPhoto($this->properties),
@@ -274,7 +274,7 @@ PHP;
     private function resolveInputProfilePhoto(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'static' => new InputProfilePhotoStatic($this->properties),
@@ -288,7 +288,7 @@ PHP;
     private function resolveInputStoryContent(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'photo' => new InputStoryContentPhoto($this->properties),
@@ -302,7 +302,7 @@ PHP;
     private function resolveInlineQueryResult(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'article' => new InlineQueryResultArticle($this->properties),
@@ -341,7 +341,7 @@ PHP;
     private function resolveInputMessageContent(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         if($this->hasProperty('message_text')){
             return new InputTextMessageContent($this->properties);
@@ -373,7 +373,7 @@ PHP;
     private function resolveRevenueWithdrawalState(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'pending' => new RevenueWithdrawalStatePending($this->properties),
@@ -388,7 +388,7 @@ PHP;
     private function resolveTransactionPartner(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->type) {
             'user' => new TransactionPartnerUser($this->properties),
@@ -407,7 +407,7 @@ PHP;
     private function resolvePassportElementError(): string
     {
         return <<<'PHP'
-    protected function resolve(): Entity
+public function resolve(): Entity
     {
         return match($this->source) {
             'data' => new PassportElementErrorDataField($this->properties),
