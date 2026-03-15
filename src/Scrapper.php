@@ -4,13 +4,6 @@ namespace Al3x5\xBot\Devkit;
 
 class Scrapper
 {
-    public static function start(): void
-    {
-        $data = static::data();
-
-        file_put_contents(dirname(__DIR__, 4) . '/api.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-    }
-
     public static function data(): array
     {
         $telegramUrl = 'https://core.telegram.org/bots/api';
