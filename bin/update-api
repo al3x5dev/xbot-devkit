@@ -2,11 +2,20 @@
 <?php
 
 use Al3x5\xBot\Devkit\Generator;
+use Al3x5\xBot\Devkit\Generator\Entities;
+use Al3x5\xBot\Devkit\Generator\Methods;
 use Al3x5\xBot\Devkit\Scrapper;
 
-include dirname(__DIR__,3) . '/autoload.php';
+include getcwd() . '/vendor/autoload.php';
 
-Scrapper::start();
-Generator::init();
+echo "🌐 Start scraping\n";
+echo "This process may take a few seconds...\n";
+$data = Scrapper::data();
 
-echo "✅ Completed Successfully";
+echo "🏗️​  Creating entities\n";
+Entities::generate($data['types']);
+
+echo "💻 Obtaining methods\n";
+Methods::generate($data['methods']);
+
+echo "✅ Update to {$data['version']}\n";
