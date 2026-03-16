@@ -46,6 +46,28 @@ class Methods implements GeneratorInterface
         'use Al3x5\xBot\Telegram\Entities\ShippingOption;',
         'use Al3x5\xBot\Telegram\Entities\PassportElementError;',
         'use Al3x5\xBot\Telegram\Entities\Story;',
+        'use Al3x5\xBot\Telegram\Entities\Message;',
+        'use Al3x5\xBot\Telegram\Entities\MessageId;',
+        'use Al3x5\xBot\Telegram\Entities\WebhookInfo;',
+        'use Al3x5\xBot\Telegram\Entities\User;',
+        'use Al3x5\xBot\Telegram\Entities\UserProfilePhotos;',
+        'use Al3x5\xBot\Telegram\Entities\File;',
+        'use Al3x5\xBot\Telegram\Entities\ChatInviteLink;',
+        'use Al3x5\xBot\Telegram\Entities\ChatFullInfo;',
+        'use Al3x5\xBot\Telegram\Entities\ChatMember;',
+        'use Al3x5\xBot\Telegram\Entities\ForumTopic;',
+        'use Al3x5\xBot\Telegram\Entities\UserChatBoosts;',
+        'use Al3x5\xBot\Telegram\Entities\BusinessConnection;',
+        'use Al3x5\xBot\Telegram\Entities\BotName;',
+        'use Al3x5\xBot\Telegram\Entities\BotDescription;',
+        'use Al3x5\xBot\Telegram\Entities\BotShortDescription;',
+        'use Al3x5\xBot\Telegram\Entities\StarAmount;',
+        'use Al3x5\xBot\Telegram\Entities\Poll;',
+        'use Al3x5\xBot\Telegram\Entities\StickerSet;',
+        'use Al3x5\xBot\Telegram\Entities\PreparedInlineMessage;',
+        'use Al3x5\xBot\Telegram\Entities\UserProfileAudios;',
+        'use Al3x5\xBot\Telegram\Entities\SentWebAppMessage;',
+        'use Al3x5\xBot\Telegram\Entities\StarTransactions;',
     ];
 
     public static function generate(array $methods): void
@@ -85,8 +107,17 @@ class Methods implements GeneratorInterface
             $returns = $data['returns'];
 
             $args = self::getProperties($parameters);
-            $docBlock = self::buildDocBlock($data['description'], $parameters, $returns);
+            $docBlock = self::buildDocBlock(
+                $name,
+                $data['description'],
+                $parameters,
+                $returns
+            );
             $return = TypeResolver::getReturnType($returns);
+
+            if ($name == 'getBusinessAccountStarBalance') {
+                $return = 'StarAmount';
+            }
 
             $content .= <<<PHP
 
@@ -129,7 +160,7 @@ class Methods implements GeneratorInterface
         return implode(', ', array_merge($required, $optional));
     }
 
-    private static function buildDocBlock(array $description, array $parameters, array $returns): string
+    private static function buildDocBlock(string $name, array $description, array $parameters, array $returns): string
     {
         $desc = implode("\n     * ", $description);
         $returnType = TypeResolver::getPhpType($returns);
@@ -142,7 +173,10 @@ class Methods implements GeneratorInterface
 
             $type = TypeResolver::getPhpType($value['type']);
             $docType = TypeResolver::formatPhpDocType($type);
-            $return = TypeResolver::getPhpType($returns);
+
+            if ($name == 'getBusinessAccountStarBalance') {
+                $returnType = 'StarAmount';
+            }
 
             $doc .= "     * @param $docType \$$key\n";
         }

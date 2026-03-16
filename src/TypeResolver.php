@@ -101,6 +101,6 @@ class TypeResolver
             return 'array';
         }
 
-        return $type;
+        return !empty($type) ? $type: 'mixed';
     }
 }
