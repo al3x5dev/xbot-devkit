@@ -91,4 +91,16 @@ class TypeResolver
     {
         return str_replace(['array<', '>'], ['', '[]'], $type);
     }
+
+    public static function getReturnType(array $returns): string
+    {
+        $type = self::getPhpType($returns);
+
+        // Array<Message> → array
+        if (str_starts_with($type, 'array<')) {
+            return 'array';
+        }
+
+        return $type;
+    }
 }

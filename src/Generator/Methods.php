@@ -82,14 +82,16 @@ class Methods implements GeneratorInterface
         // Procesar todos los tipos definidos
         foreach ($methods as $name => $data) {
             $parameters = $data['parameters'] ?? [];
+            $returns = $data['returns'];
 
             $args = self::getProperties($parameters);
-            $docBlock = self::buildDocBlock($data['description'], $parameters, $data['returns']);
+            $docBlock = self::buildDocBlock($data['description'], $parameters, $returns);
+            $return = TypeResolver::getReturnType($returns);
 
             $content .= <<<PHP
 
                 $docBlock
-                public function $name($args)
+                public function $name($args): $return
                 {
                     \$args = get_defined_vars();
                     unset(\$args['this']);
@@ -107,24 +109,32 @@ class Methods implements GeneratorInterface
 
     private static function getProperties(array $parameters): string
     {
-        $result = '';
+        $required = [];
+        $optional = [];
+
         foreach ($parameters as $key => $value) {
             $type = TypeResolver::getPhpTypeHint($value['type']);
 
             if ($value['required']) {
-                $result .= "$type $$key, ";
+                $required[] = "$type \$$key";
             } else {
-                $result .= "null|$type $$key=null, ";
+                if (str_contains($type, '|')) {
+                    $optional[] = "$type|null \$$key = null";
+                } else {
+                    $optional[] = "?$type \$$key = null";
+                }
             }
         }
 
-        return rtrim($result, ', ');
+        return implode(', ', array_merge($required, $optional));
     }
 
     private static function buildDocBlock(array $description, array $parameters, array $returns): string
     {
         $desc = implode("\n     * ", $description);
-        $return='';
+        $returnType = TypeResolver::getPhpType($returns);
+        $returnType = TypeResolver::formatPhpDocType($returnType);
+
         $doc = "/**\n";
         $doc .= "     * $desc\n";
 
@@ -137,7 +147,7 @@ class Methods implements GeneratorInterface
             $doc .= "     * @param $docType \$$key\n";
         }
 
-        $doc .= "     * @return $return\n";
+        $doc .= "     * @return $returnType\n";
         $doc .= "     */";
 
         return $doc;
