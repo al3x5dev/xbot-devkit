@@ -2,6 +2,7 @@
 
 namespace Al3x5\xBot\Devkit\Generator;
 
+use Al3x5\xBot\Devkit\SubType;
 use Al3x5\xBot\Devkit\TypeResolver;
 
 /**
@@ -42,8 +43,8 @@ class Entities implements GeneratorInterface
             $addMethod = null;
             //Subentidades
             if (isset($typeData['subtypes'])) {
-                /*$subtypes = SubType::from($name);
-                $addMethod = $subtypes->resolveMethod();*/
+                $subtypes = SubType::from($name);
+                $addMethod = $subtypes->resolveMethod();
             }
 
             //Entidades con metodos custom
