@@ -53,6 +53,778 @@ enum SubType: string
         };
     }
 
+    public function factoryMethod(): string
+    {
+        return match ($this) {
+            self::MaybeInaccessibleMessage => $this->factoryMaybeInaccessibleMessage(),
+            self::MessageOrigin => $this->factoryMessageOrigin(),
+            self::PaidMedia => $this->factoryPaidMedia(),
+            self::BackgroundFill => $this->factoryBackgroundFill(),
+            self::BackgroundType => $this->factoryBackgroundType(),
+            self::ChatMember => $this->factoryChatMember(),
+            self::StoryAreaType => $this->factoryStoryAreaType(),
+            self::ReactionType => $this->factoryReactionType(),
+            self::OwnedGift => $this->factoryOwnedGift(),
+            self::BotCommandScope => $this->factoryBotCommandScope(),
+            self::MenuButton => $this->factoryMenuButton(),
+            self::ChatBoostSource => $this->factoryChatBoostSource(),
+            self::InputMedia => $this->factoryInputMedia(),
+            self::InputPaidMedia => $this->factoryInputPaidMedia(),
+            self::InputProfilePhoto => $this->factoryInputProfilePhoto(),
+            self::InputStoryContent => $this->factoryInputStoryContent(),
+            self::InlineQueryResult => $this->factoryInlineQueryResult(),
+            self::InputMessageContent => $this->factoryInputMessageContent(),
+            self::RevenueWithdrawalState => $this->factoryRevenueWithdrawalState(),
+            self::TransactionPartner => $this->factoryTransactionPartner(),
+            self::PassportElementError => $this->factoryPassportElementError(),
+        };
+    }
+
+    public function constants(): string
+    {
+        return match ($this) {
+            self::MaybeInaccessibleMessage => $this->constMaybeInaccessibleMessage(),
+            self::MessageOrigin => $this->constMessageOrigin(),
+            self::PaidMedia => $this->constPaidMedia(),
+            self::BackgroundFill => $this->constBackgroundFill(),
+            self::BackgroundType => $this->constBackgroundType(),
+            self::ChatMember => $this->constChatMember(),
+            self::StoryAreaType => $this->constStoryAreaType(),
+            self::ReactionType => $this->constReactionType(),
+            self::OwnedGift => $this->constOwnedGift(),
+            self::BotCommandScope => $this->constBotCommandScope(),
+            self::MenuButton => $this->constMenuButton(),
+            self::ChatBoostSource => $this->constChatBoostSource(),
+            self::InputMedia => $this->constInputMedia(),
+            self::InputPaidMedia => $this->constInputPaidMedia(),
+            self::InputProfilePhoto => $this->constInputProfilePhoto(),
+            self::InputStoryContent => $this->constInputStoryContent(),
+            self::InlineQueryResult => $this->constInlineQueryResult(),
+            self::InputMessageContent => $this->constInputMessageContent(),
+            self::RevenueWithdrawalState => $this->constRevenueWithdrawalState(),
+            self::TransactionPartner => $this->constTransactionPartner(),
+            self::PassportElementError => $this->constPassportElementError(),
+        };
+    }
+
+    private function constMaybeInaccessibleMessage(): string
+    {
+        return "
+    public const TYPE_MESSAGE = 'message';
+    public const TYPE_INACCESSIBLE_MESSAGE = 'inaccessible_message';";
+    }
+
+    private function constMessageOrigin(): string
+    {
+        return "
+    public const TYPE_USER = 'user';
+    public const TYPE_HIDDEN_USER = 'hidden_user';
+    public const TYPE_CHAT = 'chat';
+    public const TYPE_CHANNEL = 'channel';";
+    }
+
+    private function constPaidMedia(): string
+    {
+        return "
+    public const TYPE_PREVIEW = 'preview';
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_VIDEO = 'video';";
+    }
+
+    private function constBackgroundFill(): string
+    {
+        return "
+    public const TYPE_SOLID = 'solid';
+    public const TYPE_GRADIENT = 'gradient';
+    public const TYPE_FREEFORM_GRADIENT = 'freeform_gradient';";
+    }
+
+    private function constBackgroundType(): string
+    {
+        return "
+    public const TYPE_FILL = 'fill';
+    public const TYPE_WALLPAPER = 'wallpaper';
+    public const TYPE_PATTERN = 'pattern';
+    public const TYPE_CHAT_THEME = 'chat_theme';";
+    }
+
+    private function constChatMember(): string
+    {
+        return "
+    public const STATUS_CREATOR = 'creator';
+    public const STATUS_ADMINISTRATOR = 'administrator';
+    public const STATUS_MEMBER = 'member';
+    public const STATUS_RESTRICTED = 'restricted';
+    public const STATUS_LEFT = 'left';
+    public const STATUS_KICKED = 'kicked';";
+    }
+
+    private function constStoryAreaType(): string
+    {
+        return "
+    public const TYPE_LOCATION = 'location';
+    public const TYPE_SUGGESTED_REACTION = 'suggested_reaction';
+    public const TYPE_LINK = 'link';
+    public const TYPE_WEATHER = 'weather';
+    public const TYPE_UNIQUE_GIFT = 'unique_gift';";
+    }
+
+    private function constReactionType(): string
+    {
+        return "
+    public const TYPE_EMOJI = 'emoji';
+    public const TYPE_CUSTOM_EMOJI = 'custom_emoji';
+    public const TYPE_PAID = 'paid';";
+    }
+
+    private function constOwnedGift(): string
+    {
+        return "
+    public const TYPE_REGULAR = 'regular';
+    public const TYPE_UNIQUE = 'unique';";
+    }
+
+    private function constBotCommandScope(): string
+    {
+        return "
+    public const TYPE_DEFAULT = 'default';
+    public const TYPE_ALL_PRIVATE_CHATS = 'all_private_chats';
+    public const TYPE_ALL_GROUP_CHATS = 'all_group_chats';
+    public const TYPE_ALL_CHAT_ADMINISTRATORS = 'all_chat_administrators';
+    public const TYPE_CHAT = 'chat';
+    public const TYPE_CHAT_ADMINISTRATORS = 'chat_administrators';
+    public const TYPE_CHAT_MEMBER = 'chat_member';";
+    }
+
+    private function constMenuButton(): string
+    {
+        return "
+    public const TYPE_COMMANDS = 'commands';
+    public const TYPE_WEB_APP = 'web_app';
+    public const TYPE_DEFAULT = 'default';";
+    }
+
+    private function constChatBoostSource(): string
+    {
+        return "
+    public const SOURCE_PREMIUM = 'premium';
+    public const SOURCE_GIFT_CODE = 'gift_code';
+    public const SOURCE_GIVEAWAY = 'giveaway';";
+    }
+
+    private function constInputMedia(): string
+    {
+        return "
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_VIDEO = 'video';
+    public const TYPE_ANIMATION = 'animation';
+    public const TYPE_DOCUMENT = 'document';
+    public const TYPE_AUDIO = 'audio';";
+    }
+
+    private function constInputPaidMedia(): string
+    {
+        return "
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_VIDEO = 'video';";
+    }
+
+    private function constInputProfilePhoto(): string
+    {
+        return "
+    public const TYPE_STATIC = 'static';
+    public const TYPE_ANIMATED = 'animated';";
+    }
+
+    private function constInputStoryContent(): string
+    {
+        return "
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_VIDEO = 'video';";
+    }
+
+    private function constInlineQueryResult(): string
+    {
+        return "
+    public const TYPE_ARTICLE = 'article';
+    public const TYPE_LOCATION = 'location';
+    public const TYPE_VENUE = 'venue';
+    public const TYPE_CONTACT = 'contact';
+    public const TYPE_GAME = 'game';
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_GIF = 'gif';
+    public const TYPE_MPEG4_GIF = 'mpeg4_gif';
+    public const TYPE_DOCUMENT = 'document';
+    public const TYPE_VIDEO = 'video';
+    public const TYPE_VOICE = 'voice';
+    public const TYPE_AUDIO = 'audio';
+    public const TYPE_STICKER = 'sticker';";
+    }
+
+    private function constInputMessageContent(): string
+    {
+        return "";
+    }
+
+    private function constRevenueWithdrawalState(): string
+    {
+        return "
+    public const TYPE_PENDING = 'pending';
+    public const TYPE_SUCCEEDED = 'succeeded';
+    public const TYPE_FAILED = 'failed';";
+    }
+
+    private function constTransactionPartner(): string
+    {
+        return "
+    public const TYPE_USER = 'user';
+    public const TYPE_CHAT = 'chat';
+    public const TYPE_AFFILIATE_PROGRAM = 'affiliate_program';
+    public const TYPE_FRAGMENT = 'fragment';
+    public const TYPE_TELEGRAM_ADS = 'telegram_ads';
+    public const TYPE_TELEGRAM_API = 'telegram_api';
+    public const TYPE_OTHER = 'other';";
+    }
+
+    private function constPassportElementError(): string
+    {
+        return "
+    public const SOURCE_DATA = 'data';
+    public const SOURCE_FRONT_SIDE = 'front_side';
+    public const SOURCE_REVERSE_SIDE = 'reverse_side';
+    public const SOURCE_SELFIE = 'selfie';
+    public const SOURCE_FILE = 'file';
+    public const SOURCE_FILES = 'files';
+    public const SOURCE_TRANSLATION_FILE = 'translation_file';
+    public const SOURCE_TRANSLATION_FILES = 'translation_files';
+    public const SOURCE_UNSPECIFIED = 'unspecified';";
+    }
+
+    private function factoryMaybeInaccessibleMessage(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on data
+     *
+     * @param array $data
+     * @return Entity
+     */
+    public static function create(array $data): Entity
+    {
+        return isset($data['from']) 
+            ? new Message($data)
+            : new InaccessibleMessage($data);
+    }
+PHP;
+    }
+
+    private function factoryMessageOrigin(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_USER => new MessageOriginUser($data),
+            self::TYPE_HIDDEN_USER => new MessageOriginHiddenUser($data),
+            self::TYPE_CHAT => new MessageOriginChat($data),
+            self::TYPE_CHANNEL => new MessageOriginChannel($data),
+            default => throw new \InvalidArgumentException('Unknown MessageOrigin type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryChatMember(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on status
+     *
+     * @param array $data Must contain 'status' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['status'] ?? null) {
+            self::STATUS_CREATOR => new ChatMemberOwner($data),
+            self::STATUS_ADMINISTRATOR => new ChatMemberAdministrator($data),
+            self::STATUS_MEMBER => new ChatMemberMember($data),
+            self::STATUS_RESTRICTED => new ChatMemberRestricted($data),
+            self::STATUS_LEFT => new ChatMemberLeft($data),
+            self::STATUS_KICKED => new ChatMemberBanned($data),
+            default => throw new \InvalidArgumentException('Unknown ChatMember status: ' . ($data['status'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryPaidMedia(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_PREVIEW => new PaidMediaPreview($data),
+            self::TYPE_PHOTO => new PaidMediaPhoto($data),
+            self::TYPE_VIDEO => new PaidMediaVideo($data),
+            default => throw new \InvalidArgumentException('Unknown PaidMedia type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryBackgroundFill(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_SOLID => new BackgroundFillSolid($data),
+            self::TYPE_GRADIENT => new BackgroundFillGradient($data),
+            self::TYPE_FREEFORM_GRADIENT => new BackgroundFillFreeformGradient($data),
+            default => throw new \InvalidArgumentException('Unknown BackgroundFill type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryBackgroundType(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_FILL => new BackgroundTypeFill($data),
+            self::TYPE_WALLPAPER => new BackgroundTypeWallpaper($data),
+            self::TYPE_PATTERN => new BackgroundTypePattern($data),
+            self::TYPE_CHAT_THEME => new BackgroundTypeChatTheme($data),
+            default => throw new \InvalidArgumentException('Unknown BackgroundType type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryStoryAreaType(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_LOCATION => new StoryAreaTypeLocation($data),
+            self::TYPE_SUGGESTED_REACTION => new StoryAreaTypeSuggestedReaction($data),
+            self::TYPE_LINK => new StoryAreaTypeLink($data),
+            self::TYPE_WEATHER => new StoryAreaTypeWeather($data),
+            self::TYPE_UNIQUE_GIFT => new StoryAreaTypeUniqueGift($data),
+            default => throw new \InvalidArgumentException('Unknown StoryAreaType type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryReactionType(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_EMOJI => new ReactionTypeEmoji($data),
+            self::TYPE_CUSTOM_EMOJI => new ReactionTypeCustomEmoji($data),
+            self::TYPE_PAID => new ReactionTypePaid($data),
+            default => throw new \InvalidArgumentException('Unknown ReactionType type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryOwnedGift(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_REGULAR => new OwnedGiftRegular($data),
+            self::TYPE_UNIQUE => new OwnedGiftUnique($data),
+            default => throw new \InvalidArgumentException('Unknown OwnedGift type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryBotCommandScope(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_DEFAULT => new BotCommandScopeDefault($data),
+            self::TYPE_ALL_PRIVATE_CHATS => new BotCommandScopeAllPrivateChats($data),
+            self::TYPE_ALL_GROUP_CHATS => new BotCommandScopeAllGroupChats($data),
+            self::TYPE_ALL_CHAT_ADMINISTRATORS => new BotCommandScopeAllChatAdministrators($data),
+            self::TYPE_CHAT => new BotCommandScopeChat($data),
+            self::TYPE_CHAT_ADMINISTRATORS => new BotCommandScopeChatAdministrators($data),
+            self::TYPE_CHAT_MEMBER => new BotCommandScopeChatMember($data),
+            default => throw new \InvalidArgumentException('Unknown BotCommandScope type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryMenuButton(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_COMMANDS => new MenuButtonCommands($data),
+            self::TYPE_WEB_APP => new MenuButtonWebApp($data),
+            self::TYPE_DEFAULT => new MenuButtonDefault($data),
+            default => throw new \InvalidArgumentException('Unknown MenuButton type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryChatBoostSource(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on source
+     *
+     * @param array $data Must contain 'source' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['source'] ?? null) {
+            self::SOURCE_PREMIUM => new ChatBoostSourcePremium($data),
+            self::SOURCE_GIFT_CODE => new ChatBoostSourceGiftCode($data),
+            self::SOURCE_GIVEAWAY => new ChatBoostSourceGiveaway($data),
+            default => throw new \InvalidArgumentException('Unknown ChatBoostSource source: ' . ($data['source'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInputMedia(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_PHOTO => new InputMediaPhoto($data),
+            self::TYPE_VIDEO => new InputMediaVideo($data),
+            self::TYPE_ANIMATION => new InputMediaAnimation($data),
+            self::TYPE_DOCUMENT => new InputMediaDocument($data),
+            self::TYPE_AUDIO => new InputMediaAudio($data),
+            default => throw new \InvalidArgumentException('Unknown InputMedia type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInputPaidMedia(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_PHOTO => new InputPaidMediaPhoto($data),
+            self::TYPE_VIDEO => new InputPaidMediaVideo($data),
+            default => throw new \InvalidArgumentException('Unknown InputPaidMedia type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInputProfilePhoto(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_STATIC => new InputProfilePhotoStatic($data),
+            self::TYPE_ANIMATED => new InputProfilePhotoAnimated($data),
+            default => throw new \InvalidArgumentException('Unknown InputProfilePhoto type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInputStoryContent(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_PHOTO => new InputStoryContentPhoto($data),
+            self::TYPE_VIDEO => new InputStoryContentVideo($data),
+            default => throw new \InvalidArgumentException('Unknown InputStoryContent type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInlineQueryResult(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * | type= | Creates |
+     * |-------|----------|
+     * | article | InlineQueryResultArticle |
+     * | location | InlineQueryResultLocation |
+     * | venue | InlineQueryResultVenue |
+     * | contact | InlineQueryResultContact |
+     * | game | InlineQueryResultGame |
+     * | photo | InlineQueryResultPhoto or CachedPhoto* |
+     * | gif | InlineQueryResultGif or CachedGif* |
+     * | document | InlineQueryResultDocument or CachedDocument* |
+     * | video | InlineQueryResultVideo or CachedVideo* |
+     * | voice | InlineQueryResultVoice or CachedVoice* |
+     * | audio | InlineQueryResultAudio or CachedAudio* |
+     * | sticker | InlineQueryResultCachedSticker |
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        $type = $data['type'] ?? null;
+        return match($type) {
+            self::TYPE_ARTICLE => new InlineQueryResultArticle($data),
+            self::TYPE_LOCATION => new InlineQueryResultLocation($data),
+            self::TYPE_VENUE => new InlineQueryResultVenue($data),
+            self::TYPE_CONTACT => new InlineQueryResultContact($data),
+            self::TYPE_GAME => new InlineQueryResultGame($data),
+            self::TYPE_STICKER => new InlineQueryResultCachedSticker($data),
+            self::TYPE_PHOTO => isset($data['photo_url'])
+                ? new InlineQueryResultPhoto($data)
+                : new InlineQueryResultCachedPhoto($data),
+            self::TYPE_GIF => isset($data['gif_url'])
+                ? new InlineQueryResultGif($data)
+                : new InlineQueryResultCachedGif($data),
+            self::TYPE_MPEG4_GIF => isset($data['mpeg4_url'])
+                ? new InlineQueryResultMpeg4Gif($data)
+                : new InlineQueryResultCachedMpeg4Gif($data),
+            self::TYPE_DOCUMENT => isset($data['document_url'])
+                ? new InlineQueryResultDocument($data)
+                : new InlineQueryResultCachedDocument($data),
+            self::TYPE_VIDEO => isset($data['video_url'])
+                ? new InlineQueryResultVideo($data)
+                : new InlineQueryResultCachedVideo($data),
+            self::TYPE_VOICE => isset($data['voice_url'])
+                ? new InlineQueryResultVoice($data)
+                : new InlineQueryResultCachedVoice($data),
+            self::TYPE_AUDIO => isset($data['audio_url'])
+                ? new InlineQueryResultAudio($data)
+                : new InlineQueryResultCachedAudio($data),
+            default => throw new \InvalidArgumentException('Unknown InlineQueryResult type: ' . ($type ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInputMessageContent(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on data provided
+     *
+     * @param array $data
+     * @return Entity
+     * | Key | Creates |
+     * |-----|----------|
+     * | message_text | InputTextMessageContent |
+     * | phone_number | InputContactMessageContent |
+     * | payload | InputInvoiceMessageContent |
+     * | latitude + longitude + title | InputVenueMessageContent |
+     * | latitude + longitude | InputLocationMessageContent |
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match(true) {
+            isset($data['message_text']) => new InputTextMessageContent($data),
+            isset($data['phone_number']) => new InputContactMessageContent($data),
+            isset($data['payload']) => new InputInvoiceMessageContent($data),
+            isset($data['latitude'], $data['longitude'], $data['title']) => new InputVenueMessageContent($data),
+            isset($data['latitude'], $data['longitude']) => new InputLocationMessageContent($data),
+            default => throw new \InvalidArgumentException('Unknown InputMessageContent: no valid property found'),
+        };
+    }
+PHP;
+    }
+
+    private function factoryRevenueWithdrawalState(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_PENDING => new RevenueWithdrawalStatePending($data),
+            self::TYPE_SUCCEEDED => new RevenueWithdrawalStateSucceeded($data),
+            self::TYPE_FAILED => new RevenueWithdrawalStateFailed($data),
+            default => throw new \InvalidArgumentException('Unknown RevenueWithdrawalState type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryTransactionPartner(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_USER => new TransactionPartnerUser($data),
+            self::TYPE_CHAT => new TransactionPartnerChat($data),
+            self::TYPE_AFFILIATE_PROGRAM => new TransactionPartnerAffiliateProgram($data),
+            self::TYPE_FRAGMENT => new TransactionPartnerFragment($data),
+            self::TYPE_TELEGRAM_ADS => new TransactionPartnerTelegramAds($data),
+            self::TYPE_TELEGRAM_API => new TransactionPartnerTelegramApi($data),
+            self::TYPE_OTHER => new TransactionPartnerOther($data),
+            default => throw new \InvalidArgumentException('Unknown TransactionPartner type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryPassportElementError(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on source
+     *
+     * @param array $data Must contain 'source' key
+     * @return Entity
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['source'] ?? null) {
+            self::SOURCE_DATA => new PassportElementErrorDataField($data),
+            self::SOURCE_FRONT_SIDE => new PassportElementErrorFrontSide($data),
+            self::SOURCE_REVERSE_SIDE => new PassportElementErrorReverseSide($data),
+            self::SOURCE_SELFIE => new PassportElementErrorSelfie($data),
+            self::SOURCE_FILE => new PassportElementErrorFile($data),
+            self::SOURCE_FILES => new PassportElementErrorFiles($data),
+            self::SOURCE_TRANSLATION_FILE => new PassportElementErrorTranslationFile($data),
+            self::SOURCE_TRANSLATION_FILES => new PassportElementErrorTranslationFiles($data),
+            self::SOURCE_UNSPECIFIED => new PassportElementErrorUnspecified($data),
+            default => throw new \InvalidArgumentException('Unknown PassportElementError source: ' . ($data['source'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
     private function resolveMaybeInaccessibleMessage(): string
     {
         return <<<'PHP'

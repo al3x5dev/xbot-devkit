@@ -41,10 +41,15 @@ class Entities implements GeneratorInterface
             }
 
             $addMethod = null;
+            $constants = null;
+            $factory = null;
+
             //Subentidades
             if (isset($typeData['subtypes'])) {
                 $subtypes = SubType::from($name);
                 $addMethod = $subtypes->resolveMethod();
+                $constants = $subtypes->constants();
+                $factory = $subtypes->factoryMethod();
             }
 
             //Entidades con metodos custom
@@ -52,7 +57,7 @@ class Entities implements GeneratorInterface
                 $addMethod = self::{$name}();
             }
 
-            $classContent = self::makeClass($name, $typeData, $addMethod);
+            $classContent = self::makeClass($name, $typeData, $addMethod, $constants, $factory);
             file_put_contents($outputDir . $name . '.php', $classContent);
         }
     }
@@ -60,7 +65,9 @@ class Entities implements GeneratorInterface
     public static function makeClass(
         string $className,
         array $typeData,
-        ?string $addMethod = null
+        ?string $addMethod = null,
+        ?string $constants = null,
+        ?string $factory = null
     ): string {
         $properties = [];
         $entityMap = [];
@@ -68,7 +75,7 @@ class Entities implements GeneratorInterface
         foreach ($typeData['fields'] ?? [] as $field => $value) {
             $fieldName = $field;
             $fieldTypes = $value['type'];
-            $phpType = TypeResolver::getPhpType($fieldTypes/*, $fieldName*/);
+            $phpType = TypeResolver::getPhpType($fieldTypes);
 
             // Solo mapear si es una entidad
             if (TypeResolver::isEntityType($phpType)) {
@@ -101,61 +108,71 @@ class Entities implements GeneratorInterface
             $entityMapCode .= "        ];";
         }
 
+        $methods = '';
         if (!is_null($addMethod)) {
-            $addMethod = "\n\n    $addMethod";
+            $methods .= "\n    " . trim($addMethod) . "\n";
         }
+        if (!is_null($factory)) {
+            $methods .= "\n    " . trim($factory) . "\n";
+        }
+        $const = (!is_null($constants))? $constants . "\n": "";
 
-        return <<<PHP
-<?php
+        return sprintf('<?php
 
-namespace Al3x5\\xBot\Telegram\Entities;
+namespace Al3x5\xBot\Telegram\Entities;
 
-use Al3x5\\xBot\Telegram\Entity;
+use Al3x5\xBot\Telegram\Entity;
 
-$docBlock
-class $className extends Entity
+%s
+class %s extends Entity
 {
+    %s
     protected function setEntities(): array
     {
-        $entityMapCode
-    }$addMethod
+        %s
+    }%s
 }
-
-PHP;
+',
+            $docBlock,
+            $className,
+            $const,
+            $entityMapCode,
+            $methods
+        );
     }
 
     private static function Update(): string
     {
-        return <<<PHP
+        return <<<'PHP'
     /**
-         * Tipo de Actualizacion
-         */
-        public function type(): ?string
-        {
-            foreach (\$this->setEntities() as \$key => \$v) {
-                if (\$this->hasProperty(\$key)) {
-                    return \$key;
-                }
+     * Tipo de Actualizacion
+     */
+    public function type(): ?string
+    {
+        foreach ($this->setEntities() as $key => $v) {
+            if ($this->hasProperty($key)) {
+                return $key;
             }
-            return null;
         }
-    PHP;
+        return null;
+    }
+PHP;
     }
 
     private static function Message(): string
     {
-        return <<<PHP
+        return <<<'PHP'
     public function isCommand(): bool
-        {
-            if (\$this->hasProperty('entities')) {
-                foreach (\$this->entities as \$entity) {
-                    if (\$entity->type === 'bot_command') {
-                        return true;
-                    }
+    {
+        if ($this->hasProperty('entities')) {
+            foreach ($this->entities as $entity) {
+                if ($entity->type === 'bot_command') {
+                    return true;
                 }
             }
-            return false;
         }
-    PHP;
+        return false;
+    }
+PHP;
     }
 }
