@@ -25,6 +25,8 @@ enum SubType: string
     case RevenueWithdrawalState = 'RevenueWithdrawalState';
     case TransactionPartner = 'TransactionPartner';
     case PassportElementError = 'PassportElementError';
+    case InputPollMedia = 'InputPollMedia';
+    case InputPollOptionMedia = 'InputPollOptionMedia';
 
     public function resolveMethod(): string
     {
@@ -50,6 +52,8 @@ enum SubType: string
             self::RevenueWithdrawalState => $this->resolveRevenueWithdrawalState(),
             self::TransactionPartner => $this->resolveTransactionPartner(),
             self::PassportElementError => $this->resolvePassportElementError(),
+            self::InputPollMedia => $this->resolveInputPollMedia(),
+            self::InputPollOptionMedia => $this->resolveInputPollOptionMedia(),
         };
     }
 
@@ -77,6 +81,8 @@ enum SubType: string
             self::RevenueWithdrawalState => $this->factoryRevenueWithdrawalState(),
             self::TransactionPartner => $this->factoryTransactionPartner(),
             self::PassportElementError => $this->factoryPassportElementError(),
+            self::InputPollMedia => $this->factoryInputPollMedia(),
+            self::InputPollOptionMedia => $this->factoryInputPollOptionMedia(),
         };
     }
 
@@ -104,6 +110,8 @@ enum SubType: string
             self::RevenueWithdrawalState => $this->constRevenueWithdrawalState(),
             self::TransactionPartner => $this->constTransactionPartner(),
             self::PassportElementError => $this->constPassportElementError(),
+            self::InputPollMedia => $this->constInputPollMedia(),
+            self::InputPollOptionMedia => $this->constInputPollOptionMedia(),
         };
     }
 
@@ -298,6 +306,31 @@ enum SubType: string
     public const SOURCE_TRANSLATION_FILE = 'translation_file';
     public const SOURCE_TRANSLATION_FILES = 'translation_files';
     public const SOURCE_UNSPECIFIED = 'unspecified';";
+    }
+
+    private function constInputPollMedia(): string
+    {
+        return "
+    public const TYPE_ANIMATION = 'animation';
+    public const TYPE_AUDIO = 'audio';
+    public const TYPE_DOCUMENT = 'document';
+    public const TYPE_LIVE_PHOTO = 'live_photo';
+    public const TYPE_LOCATION = 'location';
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_VENUE = 'venue';
+    public const TYPE_VIDEO = 'video';";
+    }
+
+    private function constInputPollOptionMedia(): string
+    {
+        return "
+    public const TYPE_ANIMATION = 'animation';
+    public const TYPE_LIVE_PHOTO = 'live_photo';
+    public const TYPE_LOCATION = 'location';
+    public const TYPE_PHOTO = 'photo';
+    public const TYPE_STICKER = 'sticker';
+    public const TYPE_VENUE = 'venue';
+    public const TYPE_VIDEO = 'video';";
     }
 
     private function factoryMaybeInaccessibleMessage(): string
@@ -825,6 +858,80 @@ PHP;
 PHP;
     }
 
+    private function factoryInputPollMedia(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     *
+     * | type= | Creates |
+     * |-------|----------|
+     * | animation | InputMediaAnimation |
+     * | audio | InputMediaAudio |
+     * | document | InputMediaDocument |
+     * | live_photo | InputMediaLivePhoto |
+     * | location | InputMediaLocation |
+     * | photo | InputMediaPhoto |
+     * | venue | InputMediaVenue |
+     * | video | InputMediaVideo |
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_ANIMATION => new InputMediaAnimation($data),
+            self::TYPE_AUDIO => new InputMediaAudio($data),
+            self::TYPE_DOCUMENT => new InputMediaDocument($data),
+            self::TYPE_LIVE_PHOTO => new InputMediaLivePhoto($data),
+            self::TYPE_LOCATION => new InputMediaLocation($data),
+            self::TYPE_PHOTO => new InputMediaPhoto($data),
+            self::TYPE_VENUE => new InputMediaVenue($data),
+            self::TYPE_VIDEO => new InputMediaVideo($data),
+            default => throw new \InvalidArgumentException('Unknown InputPollMedia type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
+    private function factoryInputPollOptionMedia(): string
+    {
+        return <<<'PHP'
+    /**
+     * Factory: creates the correct subclass based on type
+     *
+     * @param array $data Must contain 'type' key
+     * @return Entity
+     *
+     * | type= | Creates |
+     * |-------|----------|
+     * | animation | InputMediaAnimation |
+     * | live_photo | InputMediaLivePhoto |
+     * | location | InputMediaLocation |
+     * | photo | InputMediaPhoto |
+     * | sticker | InputMediaSticker |
+     * | venue | InputMediaVenue |
+     * | video | InputMediaVideo |
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match($data['type'] ?? null) {
+            self::TYPE_ANIMATION => new InputMediaAnimation($data),
+            self::TYPE_LIVE_PHOTO => new InputMediaLivePhoto($data),
+            self::TYPE_LOCATION => new InputMediaLocation($data),
+            self::TYPE_PHOTO => new InputMediaPhoto($data),
+            self::TYPE_STICKER => new InputMediaSticker($data),
+            self::TYPE_VENUE => new InputMediaVenue($data),
+            self::TYPE_VIDEO => new InputMediaVideo($data),
+            default => throw new \InvalidArgumentException('Unknown InputPollOptionMedia type: ' . ($data['type'] ?? 'null')),
+        };
+    }
+PHP;
+    }
+
     private function resolveMaybeInaccessibleMessage(): string
     {
         return <<<'PHP'
@@ -1192,6 +1299,45 @@ public function resolve(): Entity
             'translation_files' => new PassportElementErrorTranslationFiles($this->properties),
             'unspecified' => new PassportElementErrorUnspecified($this->properties),
             default => throw new \InvalidArgumentException('Unknown PassportElementError type: ' . $this->source),
+        };
+    }
+PHP;
+    }
+
+    private function resolveInputPollMedia(): string
+    {
+        return <<<'PHP'
+public function resolve(): Entity
+    {
+        return match($this->type) {
+            'animation' => new InputMediaAnimation($this->properties),
+            'audio' => new InputMediaAudio($this->properties),
+            'document' => new InputMediaDocument($this->properties),
+            'live_photo' => new InputMediaLivePhoto($this->properties),
+            'location' => new InputMediaLocation($this->properties),
+            'photo' => new InputMediaPhoto($this->properties),
+            'venue' => new InputMediaVenue($this->properties),
+            'video' => new InputMediaVideo($this->properties),
+            default => throw new \InvalidArgumentException('Unknown InputPollMedia type: ' . $this->type),
+        };
+    }
+PHP;
+    }
+
+    private function resolveInputPollOptionMedia(): string
+    {
+        return <<<'PHP'
+public function resolve(): Entity
+    {
+        return match($this->type) {
+            'animation' => new InputMediaAnimation($this->properties),
+            'live_photo' => new InputMediaLivePhoto($this->properties),
+            'location' => new InputMediaLocation($this->properties),
+            'photo' => new InputMediaPhoto($this->properties),
+            'sticker' => new InputMediaSticker($this->properties),
+            'venue' => new InputMediaVenue($this->properties),
+            'video' => new InputMediaVideo($this->properties),
+            default => throw new \InvalidArgumentException('Unknown InputPollOptionMedia type: ' . $this->type),
         };
     }
 PHP;
