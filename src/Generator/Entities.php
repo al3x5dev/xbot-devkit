@@ -57,7 +57,9 @@ class Entities implements GeneratorInterface
                 $addMethod = self::{$name}();
             }
 
-            $classContent = self::makeClass($name, $typeData, $addMethod, $constants, $factory);
+            $parentClass = $typeData['extends'] ?? 'Entity';
+
+            $classContent = self::makeClass($name, $typeData, $addMethod, $constants, $factory, $parentClass);
             file_put_contents($outputDir . $name . '.php', $classContent);
         }
     }
@@ -67,7 +69,8 @@ class Entities implements GeneratorInterface
         array $typeData,
         ?string $addMethod = null,
         ?string $constants = null,
-        ?string $factory = null
+        ?string $factory = null,
+        string $parentClass = 'Entity'
     ): string {
         $properties = [];
         $entityMap = [];
@@ -86,7 +89,18 @@ class Entities implements GeneratorInterface
                 }
                 // Manejar entidades individuales
                 else {
-                    $entityMap[$fieldName] = "$phpType::class";
+                    // Extraer la parte entidad de una unión (ej: InputFile|string → InputFile)
+                    $mappedType = $phpType;
+                    if (str_contains($phpType, '|')) {
+                        $parts = explode('|', $phpType);
+                        foreach ($parts as $part) {
+                            if (TypeResolver::isEntityType($part)) {
+                                $mappedType = $part;
+                                break;
+                            }
+                        }
+                    }
+                    $entityMap[$fieldName] = "$mappedType::class";
                 }
             }
 
@@ -124,7 +138,7 @@ namespace Al3x5\xBot\Telegram\Entities;
 use Al3x5\xBot\Telegram\Entity;
 
 %s
-class %s extends Entity
+class %s extends %s
 {
     %s
     protected function setEntities(): array
@@ -135,6 +149,7 @@ class %s extends Entity
 ',
             $docBlock,
             $className,
+            $parentClass,
             $const,
             $entityMapCode,
             $methods

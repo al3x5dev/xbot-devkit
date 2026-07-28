@@ -77,9 +77,18 @@ class TypeResolver
             'resource'
         ];
 
-        // Es entidad si:
-        // 1. No es un tipo básico
-        // 2. No es un array de tipos básicos (array<string>, array<int>, etc.)
+        // Union types: evaluar cada parte
+        if (str_contains($type, '|')) {
+            $parts = explode('|', $type);
+            foreach ($parts as $part) {
+                if (!in_array(strtolower(trim($part)), $basicTypes)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Array de entidades
         if (preg_match('/^array<(.+)>$/', $type, $matches)) {
             return !in_array(strtolower($matches[1]), $basicTypes);
         }
