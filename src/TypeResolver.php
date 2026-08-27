@@ -1,6 +1,6 @@
 <?php
 
-namespace Al3x5\xBot\Devkit;
+namespace Mk4U\TgApiKit;
 
 class TypeResolver
 {

@@ -1,10 +1,11 @@
-# DevKit
-DevKit is a specialized tool designed to facilitate updating the xBot library. Its primary purpose is to scrape the Telegram Bot API to generate and update Telegram-defined entities and methods within the xBot framework.
+# TgApiKit
+
+TgApiKit is a code generator (scaffolder) for the Telegram Bot API, targeting the [TGram](https://github.com/al3x5dev/tgram) PHP library. Its primary purpose is to scrape the Telegram Bot API to generate and update Telegram-defined entities and methods within the TGram framework.
 
 ## Features
 
-- Specific scraping of the Telegram Bot API for xBot.
-- Automatic generation and updating of PHP entities and methods defined by Telegram for the xBot framework.
+- Specific scraping of the Telegram Bot API for TGram.
+- Automatic generation and updating of PHP entities and methods defined by Telegram for the TGram framework.
 
 ## Prerequisites
 
@@ -16,21 +17,18 @@ DevKit is a specialized tool designed to facilitate updating the xBot library. I
 This library can be installed with Composer:
 
 ```bash
-composer require al3x5/xbot-devkit
+composer require mk4u/tgapikit
 ```
 
 ## Usage
-This library is designed exclusively for updating the xBot library. To use this tool and update entities and methods, simply type the following command in your console:
+This library is designed exclusively for updating the TGram library. To use this tool and update entities and methods, simply type the following command in your console:
 
 ```bash
 php vendor/bin/update-api 
 ```
 
 > [!NOTE]
-> This tool is intended solely for updating the xBot library. It is not designed for use with other frameworks or libraries.
+> This tool is intended solely for updating the TGram library. It is not designed for use with other frameworks or libraries.
 
 ## License
-This project is licensed under the [MIT License](https://github.com/al3x5dev/xbot-devkit/blob/main/LICENSE).
-
-## Contact.
-If you have any questions or comments, feel free to contact me via [Telegram](http://t.me/al3x5_dev).
+This project is licensed under the [MIT License](LICENSE).

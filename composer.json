@@ -1,6 +1,6 @@
 {
-    "name": "al3x5/xbot-devkit",
-    "description": "DevKit to scrape Telegram Bot API and generate PHP entities for the xBot framework.",
+    "name": "mk4u/tgapikit",
+    "description": "Code generator (scaffolder) for the Telegram Bot API, targeting the TGram PHP.",
     "type": "library",
     "require": {
         "php": "^8.2"
@@ -8,7 +8,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Al3x5\\xBot\\Devkit\\": "src/"
+            "Mk4U\\TgApiKit\\": "src/"
         }
     },
     "authors": [

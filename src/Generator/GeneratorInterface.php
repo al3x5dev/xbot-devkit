@@ -1,6 +1,6 @@
 <?php
 
-namespace Al3x5\xBot\Devkit\Generator;
+namespace Mk4U\TgApiKit\Generator;
 
 interface GeneratorInterface{
     public static function generate(array $data):void;

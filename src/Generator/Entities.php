@@ -1,9 +1,9 @@
 <?php
 
-namespace Al3x5\xBot\Devkit\Generator;
+namespace Mk4U\TgApiKit\Generator;
 
-use Al3x5\xBot\Devkit\SubType;
-use Al3x5\xBot\Devkit\TypeResolver;
+use Mk4U\TgApiKit\SubType;
+use Mk4U\TgApiKit\TypeResolver;
 
 /**
  * crea entidades class
@@ -25,7 +25,7 @@ class Entities implements GeneratorInterface
 
     public static function generate(array $types): void
     {
-        $outputDir = getcwd() . '/src/Telegram/Entities/';
+        $outputDir = getcwd() . '/src/Core/Entities/';
 
         // Crear directorio si no existe
         if (!file_exists($outputDir)) {
@@ -133,9 +133,9 @@ class Entities implements GeneratorInterface
 
         return sprintf('<?php
 
-namespace Al3x5\xBot\Telegram\Entities;
+namespace Mk4U\TGram\Core\Entities;
 
-use Al3x5\xBot\Telegram\Entity;
+use Mk4U\TGram\Core\Entity;
 
 %s
 class %s extends %s

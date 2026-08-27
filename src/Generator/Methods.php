@@ -1,8 +1,8 @@
 <?php
 
-namespace Al3x5\xBot\Devkit\Generator;
+namespace Mk4U\TgApiKit\Generator;
 
-use Al3x5\xBot\Devkit\TypeResolver;
+use Mk4U\TgApiKit\TypeResolver;
 
 /**
  * crea trait con todos los metodos 
@@ -10,75 +10,75 @@ use Al3x5\xBot\Devkit\TypeResolver;
 class Methods implements GeneratorInterface
 {
     public const NAMESPACES = [
-        'use Al3x5\xBot\Telegram\ApiClient;',
-        'use Al3x5\xBot\Telegram\Entities\InputFile;',
-        'use Al3x5\xBot\Telegram\Entities\MessageEntity;',
-        'use Al3x5\xBot\Telegram\Entities\LinkPreviewOptions;',
-        'use Al3x5\xBot\Telegram\Entities\SuggestedPostParameters;',
-        'use Al3x5\xBot\Telegram\Entities\ReplyParameters;',
-        'use Al3x5\xBot\Telegram\Entities\InlineKeyboardMarkup;',
-        'use Al3x5\xBot\Telegram\Entities\ReplyKeyboardMarkup;',
-        'use Al3x5\xBot\Telegram\Entities\ReplyKeyboardRemove;',
-        'use Al3x5\xBot\Telegram\Entities\ForceReply;',
-        'use Al3x5\xBot\Telegram\Entities\InputPaidMedia;',
-        'use Al3x5\xBot\Telegram\Entities\InputMediaAudio;',
-        'use Al3x5\xBot\Telegram\Entities\InputMediaDocument;',
-        'use Al3x5\xBot\Telegram\Entities\InputMediaPhoto;',
-        'use Al3x5\xBot\Telegram\Entities\InputMediaVideo;',
-        'use Al3x5\xBot\Telegram\Entities\InputPollOption;',
-        'use Al3x5\xBot\Telegram\Entities\InputChecklist;',
-        'use Al3x5\xBot\Telegram\Entities\ReactionType;',
-        'use Al3x5\xBot\Telegram\Entities\ChatPermissions;',
-        'use Al3x5\xBot\Telegram\Entities\BotCommand;',
-        'use Al3x5\xBot\Telegram\Entities\BotCommandScope;',
-        'use Al3x5\xBot\Telegram\Entities\InputProfilePhoto;',
-        'use Al3x5\xBot\Telegram\Entities\MenuButton;',
-        'use Al3x5\xBot\Telegram\Entities\ChatAdministratorRights;',
-        'use Al3x5\xBot\Telegram\Entities\AcceptedGiftTypes;',
-        'use Al3x5\xBot\Telegram\Entities\BotAccessSettings;',
-        'use Al3x5\xBot\Telegram\Entities\InputStoryContent;',
-        'use Al3x5\xBot\Telegram\Entities\StoryArea;',
-        'use Al3x5\xBot\Telegram\Entities\InputMedia;',
-        'use Al3x5\xBot\Telegram\Entities\InputSticker;',
-        'use Al3x5\xBot\Telegram\Entities\MaskPosition;',
-        'use Al3x5\xBot\Telegram\Entities\InlineQueryResult;',
-        'use Al3x5\xBot\Telegram\Entities\InlineQueryResultsButton;',
-        'use Al3x5\xBot\Telegram\Entities\LabeledPrice;',
-        'use Al3x5\xBot\Telegram\Entities\ShippingOption;',
-        'use Al3x5\xBot\Telegram\Entities\PassportElementError;',
-        'use Al3x5\xBot\Telegram\Entities\Story;',
-        'use Al3x5\xBot\Telegram\Entities\Message;',
-        'use Al3x5\xBot\Telegram\Entities\MessageId;',
-        'use Al3x5\xBot\Telegram\Entities\WebhookInfo;',
-        'use Al3x5\xBot\Telegram\Entities\User;',
-        'use Al3x5\xBot\Telegram\Entities\UserProfilePhotos;',
-        'use Al3x5\xBot\Telegram\Entities\File;',
-        'use Al3x5\xBot\Telegram\Entities\ChatInviteLink;',
-        'use Al3x5\xBot\Telegram\Entities\ChatFullInfo;',
-        'use Al3x5\xBot\Telegram\Entities\ChatMember;',
-        'use Al3x5\xBot\Telegram\Entities\ForumTopic;',
-        'use Al3x5\xBot\Telegram\Entities\UserChatBoosts;',
-        'use Al3x5\xBot\Telegram\Entities\BusinessConnection;',
-        'use Al3x5\xBot\Telegram\Entities\BotName;',
-        'use Al3x5\xBot\Telegram\Entities\BotDescription;',
-        'use Al3x5\xBot\Telegram\Entities\BotShortDescription;',
-        'use Al3x5\xBot\Telegram\Entities\InputPollMedia;',
-        'use Al3x5\xBot\Telegram\Entities\InputRichMessage;',
-        'use Al3x5\xBot\Telegram\Entities\KeyboardButton;',
-        'use Al3x5\xBot\Telegram\Entities\StarAmount;',
-        'use Al3x5\xBot\Telegram\Entities\Poll;',
-        'use Al3x5\xBot\Telegram\Entities\StickerSet;',
-        'use Al3x5\xBot\Telegram\Entities\PreparedInlineMessage;',
-        'use Al3x5\xBot\Telegram\Entities\PreparedKeyboardButton;',
-        'use Al3x5\xBot\Telegram\Entities\SentGuestMessage;',
-        'use Al3x5\xBot\Telegram\Entities\UserProfileAudios;',
-        'use Al3x5\xBot\Telegram\Entities\SentWebAppMessage;',
-        'use Al3x5\xBot\Telegram\Entities\StarTransactions;',
+        'use Mk4U\TGram\Core\ApiClient;',
+        'use Mk4U\TGram\Core\Entities\InputFile;',
+        'use Mk4U\TGram\Core\Entities\MessageEntity;',
+        'use Mk4U\TGram\Core\Entities\LinkPreviewOptions;',
+        'use Mk4U\TGram\Core\Entities\SuggestedPostParameters;',
+        'use Mk4U\TGram\Core\Entities\ReplyParameters;',
+        'use Mk4U\TGram\Core\Entities\InlineKeyboardMarkup;',
+        'use Mk4U\TGram\Core\Entities\ReplyKeyboardMarkup;',
+        'use Mk4U\TGram\Core\Entities\ReplyKeyboardRemove;',
+        'use Mk4U\TGram\Core\Entities\ForceReply;',
+        'use Mk4U\TGram\Core\Entities\InputPaidMedia;',
+        'use Mk4U\TGram\Core\Entities\InputMediaAudio;',
+        'use Mk4U\TGram\Core\Entities\InputMediaDocument;',
+        'use Mk4U\TGram\Core\Entities\InputMediaPhoto;',
+        'use Mk4U\TGram\Core\Entities\InputMediaVideo;',
+        'use Mk4U\TGram\Core\Entities\InputPollOption;',
+        'use Mk4U\TGram\Core\Entities\InputChecklist;',
+        'use Mk4U\TGram\Core\Entities\ReactionType;',
+        'use Mk4U\TGram\Core\Entities\ChatPermissions;',
+        'use Mk4U\TGram\Core\Entities\BotCommand;',
+        'use Mk4U\TGram\Core\Entities\BotCommandScope;',
+        'use Mk4U\TGram\Core\Entities\InputProfilePhoto;',
+        'use Mk4U\TGram\Core\Entities\MenuButton;',
+        'use Mk4U\TGram\Core\Entities\ChatAdministratorRights;',
+        'use Mk4U\TGram\Core\Entities\AcceptedGiftTypes;',
+        'use Mk4U\TGram\Core\Entities\BotAccessSettings;',
+        'use Mk4U\TGram\Core\Entities\InputStoryContent;',
+        'use Mk4U\TGram\Core\Entities\StoryArea;',
+        'use Mk4U\TGram\Core\Entities\InputMedia;',
+        'use Mk4U\TGram\Core\Entities\InputSticker;',
+        'use Mk4U\TGram\Core\Entities\MaskPosition;',
+        'use Mk4U\TGram\Core\Entities\InlineQueryResult;',
+        'use Mk4U\TGram\Core\Entities\InlineQueryResultsButton;',
+        'use Mk4U\TGram\Core\Entities\LabeledPrice;',
+        'use Mk4U\TGram\Core\Entities\ShippingOption;',
+        'use Mk4U\TGram\Core\Entities\PassportElementError;',
+        'use Mk4U\TGram\Core\Entities\Story;',
+        'use Mk4U\TGram\Core\Entities\Message;',
+        'use Mk4U\TGram\Core\Entities\MessageId;',
+        'use Mk4U\TGram\Core\Entities\WebhookInfo;',
+        'use Mk4U\TGram\Core\Entities\User;',
+        'use Mk4U\TGram\Core\Entities\UserProfilePhotos;',
+        'use Mk4U\TGram\Core\Entities\File;',
+        'use Mk4U\TGram\Core\Entities\ChatInviteLink;',
+        'use Mk4U\TGram\Core\Entities\ChatFullInfo;',
+        'use Mk4U\TGram\Core\Entities\ChatMember;',
+        'use Mk4U\TGram\Core\Entities\ForumTopic;',
+        'use Mk4U\TGram\Core\Entities\UserChatBoosts;',
+        'use Mk4U\TGram\Core\Entities\BusinessConnection;',
+        'use Mk4U\TGram\Core\Entities\BotName;',
+        'use Mk4U\TGram\Core\Entities\BotDescription;',
+        'use Mk4U\TGram\Core\Entities\BotShortDescription;',
+        'use Mk4U\TGram\Core\Entities\InputPollMedia;',
+        'use Mk4U\TGram\Core\Entities\InputRichMessage;',
+        'use Mk4U\TGram\Core\Entities\KeyboardButton;',
+        'use Mk4U\TGram\Core\Entities\StarAmount;',
+        'use Mk4U\TGram\Core\Entities\Poll;',
+        'use Mk4U\TGram\Core\Entities\StickerSet;',
+        'use Mk4U\TGram\Core\Entities\PreparedInlineMessage;',
+        'use Mk4U\TGram\Core\Entities\PreparedKeyboardButton;',
+        'use Mk4U\TGram\Core\Entities\SentGuestMessage;',
+        'use Mk4U\TGram\Core\Entities\UserProfileAudios;',
+        'use Mk4U\TGram\Core\Entities\SentWebAppMessage;',
+        'use Mk4U\TGram\Core\Entities\StarTransactions;',
     ];
 
     public static function generate(array $methods): void
     {
-        $outputDir = getcwd() . '/src/Telegram/';
+        $outputDir = getcwd() . '/src/Core/';
         $file = $outputDir . 'Methods.php';
         $content = '';
 
@@ -93,7 +93,7 @@ class Methods implements GeneratorInterface
         $content .= <<<PHP
         <?php
 
-        namespace Al3x5\\xBot\Telegram;
+        namespace Mk4U\\TGram\\Core;
 
         $useClass
 

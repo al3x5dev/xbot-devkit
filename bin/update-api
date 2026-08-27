@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-use Al3x5\xBot\Devkit\Generator;
-use Al3x5\xBot\Devkit\Generator\Entities;
-use Al3x5\xBot\Devkit\Generator\Methods;
-use Al3x5\xBot\Devkit\Scrapper;
+use Mk4U\TgApiKit\Generator;
+use Mk4U\TgApiKit\Generator\Entities;
+use Mk4U\TgApiKit\Generator\Methods;
+use Mk4U\TgApiKit\Scrapper;
 
 include getcwd() . '/vendor/autoload.php';
 
